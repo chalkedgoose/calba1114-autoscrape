@@ -54,6 +54,12 @@ const DataCrawler = (url) => {
         gatherHTML: async () => {
             const data = unlink(await (await fetch(url)).text());
             return data;
+        }, 
+        /**
+         *  Returns very specific portion of an elementl 
+         */
+        trans: async () => {
+
         }
     };
 };
