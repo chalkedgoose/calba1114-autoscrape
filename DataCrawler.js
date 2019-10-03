@@ -58,7 +58,7 @@ const DataCrawler = (url) => {
         /**
          *  Returns very specific portion of an elementl 
          */
-        trans: async () => {
+        trans: async (...conditions) => {
 
         }
     };
