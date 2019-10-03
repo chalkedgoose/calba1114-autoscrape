@@ -8,6 +8,10 @@
   },
   "author": "Carlos A Alba",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/calba5141114/calba1114-autoscrape.git"
+  },
   "dependencies": {
     "jsdom": "^15.1.1",
     "node-fetch": "^2.6.0"
