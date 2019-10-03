@@ -25,5 +25,5 @@ const DataCrawler = autoscrape.DataCrawler;
         .filter(e => e.tagName === "DIV")
         .filter(e => e.attributes.get('class') === 'article-content')
         .forEach(e => console.log(e));
-})()
+})();
 ```
