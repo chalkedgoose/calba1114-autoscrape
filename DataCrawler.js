@@ -31,7 +31,7 @@ const DataCrawler = async (url) => {
             tagName,
             textContent,
             attributes: deconstructAttributes(attributes)
-        })
+        });
     }
 
     /**
