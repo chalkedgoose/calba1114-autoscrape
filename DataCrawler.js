@@ -45,7 +45,7 @@ const DataCrawler = (url) => {
         return results;
     }
 
-      /**
+    /**
      * 
      * @param {*} text - HTML text from Network Request 
      * takes plain HTML text and selects specified elements from the DOM
