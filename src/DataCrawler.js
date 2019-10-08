@@ -3,31 +3,31 @@ const {
     JSDOM
 } = require('jsdom');
 
-
 const DataCrawler = async (url) => {
 
     const rawHTML = await (await fetch(url)).text();
+    const results = [];
+
+    /** Turns Attributes into key pair values */
+    const deconstructAttributes = (attributes) => {
+        return new Map(Array.prototype.slice
+            .call(attributes).map(attr => [attr.name, attr.value]));
+    };
+
 
     /**
-     * @param {*} e - Element to be passes in
+     * @param {*} element - Element to be passes in
      * @param {*} arr - In Memory Stack for deconstructed elements
      * 
      * Deconstructs elements in key value pairs.
      */
-    const elementUnlink = (e, arr) => {
+    const elementUnlink = (element) => {
         const {
             tagName,
             textContent,
             attributes
-        } = e;
-
-        /** Turns Attributes into key pair values */
-        function deconstructAttributes(attributes) {
-            return new Map(Array.prototype.slice
-                .call(attributes).map(attr => [attr.name, attr.value]));
-        };
-
-        arr.push({
+        } = element;
+        results.push({
             tagName,
             textContent,
             attributes: deconstructAttributes(attributes)
@@ -41,7 +41,8 @@ const DataCrawler = async (url) => {
      * then passes them on to the final unlinking
      */
     const unlink = (text) => {
-        const results = [];
+        // resetting in memory array.
+        results.length = 0;
         const document = new JSDOM(text).window.document;
         document.querySelectorAll('*').forEach(e => elementUnlink(e, results));
         return results;
@@ -54,12 +55,12 @@ const DataCrawler = async (url) => {
      * then passes them on to the final unlinking
      */
     const unlinkQuery = (text, queryString) => {
-        const results = [];
+        // resetting in memory array.
+        results.length = 0;
         const document = new JSDOM(text).window.document;
         document.querySelectorAll(queryString).forEach(e => elementUnlink(e, results));
         return results;
     }
-
 
     return {
         /**
@@ -77,7 +78,8 @@ const DataCrawler = async (url) => {
             return unlinkQuery(rawHTML, queryString);
         }
     };
-};
 
+
+}
 
 module.exports = DataCrawler;
