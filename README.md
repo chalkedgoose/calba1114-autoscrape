@@ -27,3 +27,19 @@ const DataCrawler = autoscrape.DataCrawler;
         .forEach(e => console.log(e));
 })();
 ```
+
+### New Trans Function (Utilizes Query String)
+
+```js 
+const autoscrape = require("@calba1114/autoscrape");
+const DataCrawler = autoscrape.DataCrawler;
+
+(async () => {
+    const GetAlligator = DataCrawler("https://alligator.io/js/filter-array-method/");
+    const Objects = await GetAlligator.trans('div .article-content');
+    Objects
+        .filter(e => e.textContent.includes('Filter'))
+        .forEach(e => console.log(e));
+})();
+```
+
