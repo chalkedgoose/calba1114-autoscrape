@@ -45,6 +45,13 @@ const DataCrawler = (url) => {
         return results;
     }
 
+    const unlinkQuery = (text, queryString) => {
+        const results = [];
+        const document = new JSDOM(text).window.document;
+        document.querySelectorAll(queryString).forEach(e => elementUnlink(e, results));
+        return results;
+    }
+
 
     return {
         /**
@@ -52,14 +59,14 @@ const DataCrawler = (url) => {
          * Data Document.
          */
         gatherHTML: async () => {
-            const data = unlink(await (await fetch(url)).text());
-            return data;
-        }, 
+            return unlink(await (await fetch(url)).text());
+        },
         /**
-         *  Returns very specific portion of an elementl 
+         * Returns an array of key value pairs for the 
+         * Data Document from  Queried area.
          */
-        trans: async (...conditions) => {
-            // todo: implement using document.querySelector and return unlinked data
+        trans: async (queryString) => {
+            return unlinkQuery(await (await fetch(url)).text(), queryString);
         }
     };
 };
