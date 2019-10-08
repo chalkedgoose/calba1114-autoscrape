@@ -45,6 +45,12 @@ const DataCrawler = (url) => {
         return results;
     }
 
+      /**
+     * 
+     * @param {*} text - HTML text from Network Request 
+     * takes plain HTML text and selects specified elements from the DOM
+     * then passes them on to the final unlinking
+     */
     const unlinkQuery = (text, queryString) => {
         const results = [];
         const document = new JSDOM(text).window.document;
