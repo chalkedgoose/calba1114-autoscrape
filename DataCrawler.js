@@ -4,7 +4,7 @@ const {
 } = require('jsdom');
 
 
-const DataCrawler = (url) => {
+const DataCrawler = async (url) => {
 
     const rawHTML = await (await fetch(url)).text();
 

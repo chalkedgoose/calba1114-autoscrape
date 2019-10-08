@@ -1,6 +1,6 @@
 {
   "name": "@calba1114/autoscrape",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Allows for the quick scraping and asssement of HTML files.",
   "main": "index.js",
   "scripts": {
