@@ -2,9 +2,9 @@
   "name": "@calba1114/autoscrape",
   "version": "0.0.6",
   "description": "Allows for the quick scraping and asssement of HTML files.",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "tsc"
   },
   "author": "Carlos A Alba",
   "license": "ISC",
@@ -13,7 +13,13 @@
     "url": "https://github.com/calba5141114/calba1114-autoscrape.git"
   },
   "dependencies": {
+    "@types/jsdom": "^12.2.4",
+    "@types/node-fetch": "^2.5.2",
+    "install": "^0.13.0",
     "jsdom": "^15.1.1",
-    "node-fetch": "^2.6.0"
-  }
+    "node-fetch": "^2.6.0",
+    "typescript": "^3.6.3"
+  },
+  "types": "dist/index.d.ts",
+  "main": "dist/index.js"
 }

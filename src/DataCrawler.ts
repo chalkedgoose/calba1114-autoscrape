@@ -1,15 +1,13 @@
-const fetch = require('node-fetch');
-const {
-    JSDOM
-} = require('jsdom');
+import fetch from 'node-fetch';
+import { JSDOM } from 'jsdom';
 
-const DataCrawler = async (url) => {
+export const DataCrawler = async (url: string) => {
 
-    const rawHTML = await (await fetch(url)).text();
-    const results = [];
+    const rawHTML: string = await (await fetch(url)).text();
+    const results: any[] = [];
 
     /** Turns Attributes into key pair values */
-    const deconstructAttributes = (attributes) => {
+    const deconstructAttributes = (attributes: any) => {
         return new Map(Array.prototype.slice
             .call(attributes).map(attr => [attr.name, attr.value]));
     };
@@ -21,7 +19,7 @@ const DataCrawler = async (url) => {
      * 
      * Deconstructs elements in key value pairs.
      */
-    const elementUnlink = (element) => {
+    const elementUnlink = (element: any) => {
         const {
             tagName,
             textContent,
@@ -40,11 +38,11 @@ const DataCrawler = async (url) => {
      * takes plain HTML text and selects all elements from the DOM
      * then passes them on to the final unlinking
      */
-    const unlink = (text) => {
+    const unlink = (text: string) => {
         // resetting in memory array.
         results.length = 0;
-        const document = new JSDOM(text).window.document;
-        document.querySelectorAll('*').forEach(e => elementUnlink(e, results));
+        const document: Document = new JSDOM(text).window.document;
+        document.querySelectorAll('*').forEach(e => elementUnlink(e));
         return results;
     }
 
@@ -54,11 +52,11 @@ const DataCrawler = async (url) => {
      * takes plain HTML text and selects specified elements from the DOM
      * then passes them on to the final unlinking
      */
-    const unlinkQuery = (text, queryString) => {
+    const unlinkQuery = (text: string, queryString: string) => {
         // resetting in memory array.
         results.length = 0;
-        const document = new JSDOM(text).window.document;
-        document.querySelectorAll(queryString).forEach(e => elementUnlink(e, results));
+        const document: Document = new JSDOM(text).window.document;
+        document.querySelectorAll(queryString).forEach(e => elementUnlink(e));
         return results;
     }
 
@@ -67,19 +65,17 @@ const DataCrawler = async (url) => {
          * Returns an array of key value pairs for the 
          * Data Document.
          */
-        gatherHTML: async () => {
+        gatherHTML: async (): Promise<any[]> => {
             return unlink(rawHTML);
         },
         /**
          * Returns an array of key value pairs for the 
          * Data Document from  Queried area.
          */
-        trans: async (queryString) => {
+        trans: async (queryString: string): Promise<any[]> => {
             return unlinkQuery(rawHTML, queryString);
         }
     };
 
 
 }
-
-module.exports = DataCrawler;
