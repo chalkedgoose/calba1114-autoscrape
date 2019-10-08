@@ -6,6 +6,8 @@ const {
 
 const DataCrawler = (url) => {
 
+    const rawHTML = await (await fetch(url)).text();
+
     /**
      * @param {*} e - Element to be passes in
      * @param {*} arr - In Memory Stack for deconstructed elements
@@ -65,14 +67,14 @@ const DataCrawler = (url) => {
          * Data Document.
          */
         gatherHTML: async () => {
-            return unlink(await (await fetch(url)).text());
+            return unlink(rawHTML);
         },
         /**
          * Returns an array of key value pairs for the 
          * Data Document from  Queried area.
          */
         trans: async (queryString) => {
-            return unlinkQuery(await (await fetch(url)).text(), queryString);
+            return unlinkQuery(rawHTML, queryString);
         }
     };
 };
