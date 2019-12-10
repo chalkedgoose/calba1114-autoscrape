@@ -13,23 +13,23 @@ export const DataCrawler = async (url: string) => {
 
 
     /**
-     * @param {*} element - Element to be passes in
-     * @param {*} arr - In Memory Stack for deconstructed elements
+     * @param {*} element - Element to be passed in.
      * 
      * Deconstructs elements in key value pairs.
      */
-    const elementUnlink = (element: any) => {
-        const {
-            tagName,
-            textContent,
-            attributes
-        } = element;
+    const elementUnlink = ({ tagName, textContent, attributes }: any) => {
         results.push({
             tagName,
             textContent,
             attributes: deconstructAttributes(attributes)
         });
     }
+
+    const elementUnlinkSimple = ({ tagName, textContent, attributes }: any) => ({ tagName,
+         textContent, attributes: deconstructAttributes(attributes) });
+
+    const unlinkSimple = (text: string) => new JSDOM.text
+
 
     /**
      * 
