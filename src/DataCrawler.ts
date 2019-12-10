@@ -28,7 +28,8 @@ export const DataCrawler = async (url: string) => {
     const elementUnlinkSimple = ({ tagName, textContent, attributes }: any) => ({ tagName,
          textContent, attributes: deconstructAttributes(attributes) });
 
-    const unlinkSimple = (text: string) => new JSDOM(text)
+    const unlinkSimple = (text: string) => new JSDOM(text).window.document
+    .querySelectorAll()
 
 
     /**
