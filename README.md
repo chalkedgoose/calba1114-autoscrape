@@ -24,15 +24,15 @@ const { DataCrawler } = require("@calba1114/autoscrape");
 })();
 ```
 
-### New Trans Function (Utilizes Query String)
+### New Trans Function (Utilizes Native Query Strings)
 
 ```js 
-const autoscrape = require("@calba1114/autoscrape");
-const DataCrawler = autoscrape.DataCrawler;
+const { DataCrawler } = require("@calba1114/autoscrape");
 
 (async () => {
-    const GetAlligator = await DataCrawler("https://alligator.io/js/filter-array-method/");
-    const Objects = await GetAlligator.trans('div .article-content');
+    const crawler = DataCrawler();
+    const rawHTML = await crawler.fetchPageText("https://alligator.io/js/filter-array-method/");
+    const Objects = crawler.unlinkQuery(rawHTML,'div .article-content');
     Objects
         .filter(e => e.textContent.includes('Filter'))
         .forEach(e => console.log(e));
