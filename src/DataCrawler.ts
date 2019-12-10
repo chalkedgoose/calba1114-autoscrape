@@ -26,7 +26,7 @@ export const DataCrawler = async (url: string) => {
      * takes plain HTML text and selects all elements from the DOM
      * then passes them on to the final unlinking
      */
-    const unlinkAllFunctional = (text: string) => Array.from(new JSDOM(text).window.document
+    const unlinkAll = (text: string) => Array.from(new JSDOM(text).window.document
     .querySelectorAll('*')).map(elementUnlink);
 
     /**
@@ -44,7 +44,7 @@ export const DataCrawler = async (url: string) => {
          * Data Document.
          */
         gatherHTML: async (): Promise<any[]> => {
-            return unlinkAllFunctional(raw);
+            return unlinkAll(raw);
         },
         /**
          * Returns an array of key value pairs for the 
