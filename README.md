@@ -10,16 +10,12 @@ will soon be implemented in the next release.
 ### Example Code
 
 ```js 
-const autoscrape = require("@calba1114/autoscrape");
-const DataCrawler = autoscrape.DataCrawler;
-
-/**
- *  const { DataCrawler } = require("@calba1114/autoscrape");
-*/
+const { DataCrawler } = require("@calba1114/autoscrape");
 
 (async () => {
-    const GetAlligator = await DataCrawler("https://alligator.io/js/filter-array-method/");
-    const Objects = await GetAlligator.gatherHTML();
+    const crawler = DataCrawler();
+    const rawHTML = await crawler.fetchPageText("https://alligator.io/js/filter-array-method/");
+    const Objects = crawler.unlinkAll(rawHTML);
     Objects
         .filter(e => e.textContent.includes('Filter'))
         .filter(e => e.tagName === "DIV")
