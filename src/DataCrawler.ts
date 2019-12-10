@@ -7,10 +7,9 @@ export const DataCrawler = async (url: string) => {
     const results: any[] = [];
 
     /** Turns Attributes into key pair values */
-    const deconstructAttributes = (attributes: any) => {
-        return new Map(Array.prototype.slice
-            .call(attributes).map(attr => [attr.name, attr.value]));
-    };
+    const deconstructAttributes = (attributes: any) => new Map(Array.prototype.slice
+        .call(attributes).map(attr => [attr.name, attr.value]));
+
 
 
     /**
