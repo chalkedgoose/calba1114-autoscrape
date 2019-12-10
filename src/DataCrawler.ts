@@ -3,7 +3,7 @@ import { JSDOM } from 'jsdom';
 
 export const DataCrawler = async (url: string) => {
 
-    const rawHTML: string = await (await fetch(url)).text();
+    const raw: string = await (await fetch(url)).text();
 
     /** Turns Attributes into key pair values */
     const deconstructAttributesFunctional = (attributes: any) => new Map(Array.prototype.slice
@@ -42,14 +42,14 @@ export const DataCrawler = async (url: string) => {
          * Data Document.
          */
         gatherHTML: async (): Promise<any[]> => {
-            return unlinkAllFunctional(rawHTML);
+            return unlinkAllFunctional(raw);
         },
         /**
          * Returns an array of key value pairs for the 
          * Data Document from  Queried area.
          */
         trans: async (queryString: string): Promise<any[]> => {
-            return unlinkQueryFunctional(rawHTML, queryString);
+            return unlinkQueryFunctional(raw, queryString);
         }
     };
 
