@@ -35,7 +35,7 @@ export const DataCrawler = async (url: string) => {
      * takes plain HTML text and selects specified elements from the DOM
      * then passes them on to the final unlinking
      */
-    const unlinkQueryFunctional = (text: string, queryString: string) => Array
+    const unlinkQuery = (text: string, queryString: string) => Array
     .from(new JSDOM(text).window.document.querySelectorAll(queryString)).map(elementUnlink)
 
     return {
@@ -51,7 +51,7 @@ export const DataCrawler = async (url: string) => {
          * Data Document from  Queried area.
          */
         trans: async (queryString: string): Promise<any[]> => {
-            return unlinkQueryFunctional(raw, queryString);
+            return unlinkQuery(raw, queryString);
         }
     };
 
