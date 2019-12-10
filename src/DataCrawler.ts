@@ -17,14 +17,6 @@ export const DataCrawler = async (url: string) => {
      * 
      * Deconstructs elements in key value pairs.
      */
-    const elementUnlink = ({ tagName, textContent, attributes }: any) => {
-        results.push({
-            tagName,
-            textContent,
-            attributes: deconstructAttributes(attributes)
-        });
-    }
-
     const elementUnlinkFunctional = ({ tagName, textContent, attributes }: any) => ({ tagName,
          textContent, attributes: deconstructAttributes(attributes) });
 
