@@ -4,7 +4,6 @@ import { JSDOM } from 'jsdom';
 export const DataCrawler = async (url: string) => {
 
     const rawHTML: string = await (await fetch(url)).text();
-    const results: any[] = [];
 
     /** Turns Attributes into key pair values */
     const deconstructAttributesFunctional = (attributes: any) => new Map(Array.prototype.slice
