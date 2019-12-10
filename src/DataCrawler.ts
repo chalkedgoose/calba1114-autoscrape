@@ -25,11 +25,11 @@ export const DataCrawler = async (url: string) => {
         });
     }
 
-    const elementUnlinkSimple = ({ tagName, textContent, attributes }: any) => ({ tagName,
+    const elementUnlinkFunctional = ({ tagName, textContent, attributes }: any) => ({ tagName,
          textContent, attributes: deconstructAttributes(attributes) });
 
-    const unlinkSimple = (text: string) => new JSDOM(text).window.document
-    .querySelectorAll()
+    const unlinkAllFunctional = (text: string) => Array.from(new JSDOM(text).window.document
+    .querySelectorAll('*')).map(elementUnlinkFunctional);
 
 
     /**
@@ -60,20 +60,23 @@ export const DataCrawler = async (url: string) => {
         return results;
     }
 
+    const unlinkQueryFunctional = (text: string, queryString: string) => Array
+    .from(new JSDOM(text).window.document.querySelectorAll(queryString)).map(elementUnlinkFunctional)
+
     return {
         /**
          * Returns an array of key value pairs for the 
          * Data Document.
          */
         gatherHTML: async (): Promise<any[]> => {
-            return unlink(rawHTML);
+            return unlinkAllFunctional(rawHTML);
         },
         /**
          * Returns an array of key value pairs for the 
          * Data Document from  Queried area.
          */
         trans: async (queryString: string): Promise<any[]> => {
-            return unlinkQuery(rawHTML, queryString);
+            return unlinkQueryFunctional(rawHTML, queryString);
         }
     };
 
