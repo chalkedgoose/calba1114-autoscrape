@@ -1,11 +1,13 @@
 import fetch from 'node-fetch';
 import { JSDOM } from 'jsdom';
 
-export const DataCrawler = async (url: string) => {
+export const DataCrawler = () => {
 
-    const raw: string = await (await fetch(url)).text();
-
-    // const fetchPageText
+    /**
+     * 
+     * @param {string} url - target url
+     */
+    const fetchPageText = async (url: string) => await (await fetch(url)).text();
 
     /** Turns Attributes into key pair values */
     const deconstructAttributes = (attributes: any) => new Map(Array.prototype.slice
@@ -41,20 +43,9 @@ export const DataCrawler = async (url: string) => {
         .from(new JSDOM(text).window.document.querySelectorAll(queryString)).map(elementUnlink)
 
     return {
-        /**
-         * Returns an array of key value pairs for the 
-         * Data Document.
-         */
-        gatherHTML: async (): Promise<any[]> => {
-            return unlinkAll(raw);
-        },
-        /**
-         * Returns an array of key value pairs for the 
-         * Data Document from  Queried area.
-         */
-        trans: async (queryString: string): Promise<any[]> => {
-            return unlinkQuery(raw, queryString);
-        }
+        fetchPageText, 
+        unlinkAll,
+        unlinkQuery
     };
 
 
