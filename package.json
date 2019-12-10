@@ -15,7 +15,6 @@
   "dependencies": {
     "@types/jsdom": "^12.2.4",
     "@types/node-fetch": "^2.5.2",
-    "install": "^0.13.0",
     "jsdom": "^15.1.1",
     "node-fetch": "^2.6.0",
     "typescript": "^3.6.3"
