@@ -5,8 +5,10 @@ export const DataCrawler = async (url: string) => {
 
     const raw: string = await (await fetch(url)).text();
 
+    // const fetchPageText
+
     /** Turns Attributes into key pair values */
-    const deconstructAttributesFunctional = (attributes: any) => new Map(Array.prototype.slice
+    const deconstructAttributes = (attributes: any) => new Map(Array.prototype.slice
         .call(attributes).map(attr => [attr.name, attr.value]));
 
     /**
@@ -15,7 +17,7 @@ export const DataCrawler = async (url: string) => {
      * Deconstructs elements in key value pairs.
      */
     const elementUnlinkFunctional = ({ tagName, textContent, attributes }: any) => ({ tagName,
-         textContent, attributes: deconstructAttributesFunctional(attributes) });
+         textContent, attributes: deconstructAttributes(attributes) });
 
  
     /**
