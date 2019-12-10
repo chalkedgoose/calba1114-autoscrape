@@ -7,10 +7,8 @@ export const DataCrawler = async (url: string) => {
     const results: any[] = [];
 
     /** Turns Attributes into key pair values */
-    const deconstructAttributes = (attributes: any) => new Map(Array.prototype.slice
+    const deconstructAttributesFunctional = (attributes: any) => new Map(Array.prototype.slice
         .call(attributes).map(attr => [attr.name, attr.value]));
-
-
 
     /**
      * @param {*} element - Element to be passed in.
@@ -18,7 +16,7 @@ export const DataCrawler = async (url: string) => {
      * Deconstructs elements in key value pairs.
      */
     const elementUnlinkFunctional = ({ tagName, textContent, attributes }: any) => ({ tagName,
-         textContent, attributes: deconstructAttributes(attributes) });
+         textContent, attributes: deconstructAttributesFunctional(attributes) });
 
  
     /**
