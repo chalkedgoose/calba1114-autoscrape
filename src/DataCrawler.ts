@@ -16,7 +16,7 @@ export const DataCrawler = async (url: string) => {
      * 
      * Deconstructs elements in key value pairs.
      */
-    const elementUnlinkFunctional = ({ tagName, textContent, attributes }: any) => ({ tagName,
+    const elementUnlink = ({ tagName, textContent, attributes }: any) => ({ tagName,
          textContent, attributes: deconstructAttributes(attributes) });
 
  
@@ -27,7 +27,7 @@ export const DataCrawler = async (url: string) => {
      * then passes them on to the final unlinking
      */
     const unlinkAllFunctional = (text: string) => Array.from(new JSDOM(text).window.document
-    .querySelectorAll('*')).map(elementUnlinkFunctional);
+    .querySelectorAll('*')).map(elementUnlink);
 
     /**
      * 
@@ -36,7 +36,7 @@ export const DataCrawler = async (url: string) => {
      * then passes them on to the final unlinking
      */
     const unlinkQueryFunctional = (text: string, queryString: string) => Array
-    .from(new JSDOM(text).window.document.querySelectorAll(queryString)).map(elementUnlinkFunctional)
+    .from(new JSDOM(text).window.document.querySelectorAll(queryString)).map(elementUnlink)
 
     return {
         /**
