@@ -28,23 +28,15 @@ export const DataCrawler = async (url: string) => {
     const elementUnlinkFunctional = ({ tagName, textContent, attributes }: any) => ({ tagName,
          textContent, attributes: deconstructAttributes(attributes) });
 
-    const unlinkAllFunctional = (text: string) => Array.from(new JSDOM(text).window.document
-    .querySelectorAll('*')).map(elementUnlinkFunctional);
-
-
+ 
     /**
      * 
      * @param {*} text - HTML text from Network Request 
      * takes plain HTML text and selects all elements from the DOM
      * then passes them on to the final unlinking
      */
-    const unlink = (text: string) => {
-        // resetting in memory array.
-        results.length = 0;
-        const document: Document = new JSDOM(text).window.document;
-        document.querySelectorAll('*').forEach(e => elementUnlink(e));
-        return results;
-    }
+    const unlinkAllFunctional = (text: string) => Array.from(new JSDOM(text).window.document
+    .querySelectorAll('*')).map(elementUnlinkFunctional);
 
     /**
      * 
@@ -52,14 +44,6 @@ export const DataCrawler = async (url: string) => {
      * takes plain HTML text and selects specified elements from the DOM
      * then passes them on to the final unlinking
      */
-    const unlinkQuery = (text: string, queryString: string) => {
-        // resetting in memory array.
-        results.length = 0;
-        const document: Document = new JSDOM(text).window.document;
-        document.querySelectorAll(queryString).forEach(e => elementUnlink(e));
-        return results;
-    }
-
     const unlinkQueryFunctional = (text: string, queryString: string) => Array
     .from(new JSDOM(text).window.document.querySelectorAll(queryString)).map(elementUnlinkFunctional)
 
