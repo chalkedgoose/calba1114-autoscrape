@@ -1,6 +1,5 @@
-
-# Created by https://www.gitignore.io/api/vim,node,macos,emacs,windows,visualstudiocode
-# Edit at https://www.gitignore.io/?templates=vim,node,macos,emacs,windows,visualstudiocode
+### Reasonml ###
+/lib
 
 ### Emacs ###
 # -*- mode: gitignore; -*-
@@ -229,5 +228,3 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
-
-# End of https://www.gitignore.io/api/vim,node,macos,emacs,windows,visualstudiocode
