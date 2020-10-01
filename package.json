@@ -3,8 +3,10 @@
   "version": "0.0.8",
   "description": "Allows for the quick scraping and assement of HTML files.",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish": "tsc"
+    "test": "jest",
+    "prepareBeforePub": "tsc",
+    "re:build": "bsb -make-world && webpack",
+    "re:start": "bsb -make-world && webpack-dev-server --open"
   },
   "author": "Carlos A Alba",
   "license": "ISC",
@@ -15,10 +17,17 @@
   "dependencies": {
     "@types/jsdom": "^12.2.4",
     "@types/node-fetch": "^2.5.2",
+    "install": "^0.13.0",
     "jsdom": "^15.1.1",
     "node-fetch": "^2.6.0",
-    "typescript": "^3.6.3"
+    "npm": "^6.14.8",
+    "typescript": "^4.0.3"
   },
   "types": "dist/index.d.ts",
-  "main": "dist/index.js"
+  "main": "dist/index.js",
+  "devDependencies": {
+    "bs-platform": "^8.2.0",
+    "gentype": "^3.36.0",
+    "jest": "^26.4.2"
+  }
 }
