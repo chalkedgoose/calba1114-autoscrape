@@ -1,8 +1,15 @@
+import type { RequestInfo } from "node-fetch";
 import fetch from "node-fetch";
 import { JSDOM } from "jsdom";
 
+/**
+ * Allows autocompletion on a string based Unions
+ * while still allowing unknown or wildcard strings.
+ * Can be adapted to work on number types.
+ */
 type LiteralUnion<T extends U, U = string> = T | (U & { zz_IGNORE_ME?: never });
 
+/** Common Tag Names */
 type DCrawlerCommonTags = LiteralUnion<
   | "h1"
   | "h2"
@@ -17,14 +24,23 @@ type DCrawlerCommonTags = LiteralUnion<
   | "div"
 >;
 
+/** Common Tag Attributes  */
 type DCrawlerAttributes = LiteralUnion<"class" | "href" | "src">;
 
+/**
+ * Need to find a way to extend the JSDOM types
+ * for this to be more effective. This is returned
+ * as a data for elements picked up by DQuery.
+ */
 type DQueryResultElement = {
   readonly ontagName: any;
   readonly textContent: any;
   readonly attributes: Map<any, any>;
 };
 
+/**
+ * Tuple type for pairing tag attributes to certain values
+ */
 type AttributePair = [attribute: DCrawlerAttributes, value: any];
 
 /**
@@ -61,21 +77,63 @@ export class DQueryBuilder {
     return this;
   }
   public build() {
-    return new DqueryResult(this.httpTarget, "", this.isLocalHTMl);
+    // TODO(1): Look into using the  XPATH query instead of a normal css selector
+    const generatedQueryString = "";
+    // TODO(2) Remove Test Value before publishing package.
+    const testGeneratedQueryString = "div .article-content";
+    return new DqueryResult(
+      testGeneratedQueryString,
+      this.httpTarget,
+      this.isLocalHTMl
+    );
   }
 }
 
 export class DqueryResult {
-  private queryString: string;
-  private httpTarget: string;
-  public elements: Array<DQueryResultElement>;
-  private isLocalHTMl: boolean = false;
+  private httpTarget: RequestInfo;
+  private elements: NodeListOf<Element> | null;
+
+  private pullHttpTarget(): string {
+    try {
+      let mutableResult = "";
+      fetch(this.httpTarget)
+        .then((res) => res.text())
+        .then((text) => (mutableResult = text));
+      if (mutableResult.length <= 0) {
+        throw new Error("There is no result or HTML to parse.");
+      }
+      return mutableResult;
+    } catch (error) {
+      throw new Error(`Fetching HTTP target failed: ${error}`);
+    }
+  }
 
   constructor(queryString: string, httpTarget: string, isLocalHTMl: boolean) {
-    this.queryString = queryString;
+    this.elements = null;
     this.httpTarget = httpTarget;
-    this.elements = [];
-    // used to skip networking and just use httpTarget as HTML Block
-    this.isLocalHTMl = isLocalHTMl;
+    /**
+     *  used to skip networking and just use httpTarget as HTML Block
+     */
+    if (isLocalHTMl) {
+      this.elements = new JSDOM(httpTarget).window.document.querySelectorAll(
+        queryString
+      );
+      return;
+    }
+    /**
+     * Fetch from Networking Request
+     */
+    const rawHTML = this.pullHttpTarget();
+    this.elements = new JSDOM(rawHTML).window.document.querySelectorAll(
+      queryString
+    );
+  }
+
+  public getElements(): NodeListOf<Element> {
+    if (this.elements === null) {
+      throw new Error("Elements are null");
+    } else {
+      return this.elements;
+    }
   }
 }
