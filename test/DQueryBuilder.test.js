@@ -1,4 +1,5 @@
 const { DQueryBuilder } = require("../dist/index.js");
+const fetch = require("node-fetch");
 
 const htmlTestingPage = `
 <!DOCTYPE html>
@@ -30,13 +31,16 @@ test("Pulls Data from HTML with DQueryBuilder", () => {
  * checks.
  */
 test("Pulls Data from HTML with DQueryBuilder", () => {
-  const dQueryResult = new DQueryBuilder(
-    "https://alligator.io/js/filter-array-method/"
-  )
+  let html = "";
+  fetch("https://alligator.io/js/filter-array-method/")
+    .then((res) => res.text())
+    .then((txt) => (html = txt));
+
+  const testing = new DQueryBuilder(html)
     .containsTagName("div")
     .containsTagAttributes(["class", "article-content"])
     .containsTagAttributes(["textContent", "Filter"])
     .build();
 
-  expect(dQueryResult.getElements()).toBe(1);
+  expect(testing.elements).toBe(1);
 });

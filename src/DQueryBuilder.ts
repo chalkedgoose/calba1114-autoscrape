@@ -18,7 +18,8 @@ function DQueryProcess(
   attributeCollection: Array<AttributePair>,
   html: HTML
 ): DQueryResult {
-  return new DQueryResult("queryString", html);
+  const tags = tagCollection.join(" ");
+  return new DQueryResult(`${tags}`, html);
 }
 
 /**
