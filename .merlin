@@ -5,6 +5,8 @@ FLG -ppx '/Users/carlosalbag/Development/calba1114-autoscrape/node_modules/bs-pl
 S /Users/carlosalbag/Development/calba1114-autoscrape/node_modules/bs-platform/lib/ocaml
 B /Users/carlosalbag/Development/calba1114-autoscrape/node_modules/bs-platform/lib/ocaml
 FLG -w +a-4-9-20-40-41-42-50-61-102
+S /Users/carlosalbag/Development/calba1114-autoscrape/node_modules/bs-node-fetch/lib/ocaml
+B /Users/carlosalbag/Development/calba1114-autoscrape/node_modules/bs-node-fetch/lib/ocaml
 S src
 B lib/bs/src
 ####BSB GENERATED: NO EDIT}

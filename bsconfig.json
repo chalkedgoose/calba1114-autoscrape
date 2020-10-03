@@ -17,5 +17,6 @@
   "refmt": 3,
   "gentypeconfig": {
     "language": "typescript"
-  }
+  },
+  "bs-dependencies": ["bs-node-fetch"]
 }

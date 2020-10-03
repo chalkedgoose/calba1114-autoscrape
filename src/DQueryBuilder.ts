@@ -50,7 +50,6 @@ export class DQueryBuilder {
   private httpTarget: string;
   private tagCollection: Array<string> = [];
   private attributeCollection: Array<AttributePair> = [];
-  private contentCollection: Array<string> = [];
   private isLocalHTMl: boolean = false;
   constructor(httpTarget: string) {
     this.httpTarget = httpTarget;
@@ -72,17 +71,40 @@ export class DQueryBuilder {
     this.attributeCollection.push(input);
     return this;
   }
-  public containsContent(content: string) {
-    this.contentCollection.push(content);
-    return this;
+
+  private processAttributes() {
+    const formatAttribute = (node: AttributePair) => {
+      return `@${node[0]}='${node[1]}'`;
+    };
+
+    if (this.attributeCollection.length <= 0) {
+      return null;
+    }
+    if (this.attributeCollection.length === 1) {
+      return `[${formatAttribute(this.attributeCollection[0])}]`;
+    }
+    return `[${formatAttribute(
+      this.attributeCollection[0]
+    )} ${this.attributeCollection
+      .slice(1)
+      .map((node) => `and ${formatAttribute(node)}`)}]`;
   }
+
+  private processTags() {
+    const attributes = this.processAttributes();
+    /**
+     *  tag name attribute one and additional attribute
+     * //input[@id='Passwd' and @placeholder='Password']
+     */
+    return `${this.tagCollection.join(" ")}${attributes}`;
+  }
+
   public build() {
     // TODO(1): Look into using the  XPATH query instead of a normal css selector
-    const generatedQueryString = "";
+    const generatedQueryString = this.processTags();
     // TODO(2) Remove Test Value before publishing package.
-    const testGeneratedQueryString = "div .article-content";
     return new DqueryResult(
-      testGeneratedQueryString,
+      generatedQueryString,
       this.httpTarget,
       this.isLocalHTMl
     );
