@@ -100,6 +100,12 @@ export class DQueryBuilder {
   }
 
   public build() {
+    /**
+     * TODO(3)
+     * var matches = document.querySelectorAll("iframe[data-src]");
+     * const refs = [...document.querySelectorAll(`[data-name*="funnel-chart-percent"]`)];
+     * might be able to use attribute selectors instead of xpath minimal changes from old system.
+     */
     // TODO(1): Look into using the  XPATH query instead of a normal css selector
     const generatedQueryString = this.processTags();
     console.log(`Generated Query String "${generatedQueryString}"`);
