@@ -18,7 +18,7 @@ test("Pulls Data from HTML with DQueryBuilder", () => {
     .setLocalHTML(true)
     .containsTagName("div")
     .containsTagAttributes(["class", "article-content"])
-    .containsContent("Filter")
+    .containsTagAttributes(["textContent", "Filter"])
     .build();
 
   expect(dQueryResult.getElements()).toBe(1);
@@ -35,7 +35,7 @@ test("Pulls Data from HTML with DQueryBuilder", () => {
   )
     .containsTagName("div")
     .containsTagAttributes(["class", "article-content"])
-    .containsContent("Filter")
+    .containsTagAttributes(["textContent", "Filter"])
     .build();
 
   expect(dQueryResult.getElements()).toBe(1);

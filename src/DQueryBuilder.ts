@@ -102,6 +102,7 @@ export class DQueryBuilder {
   public build() {
     // TODO(1): Look into using the  XPATH query instead of a normal css selector
     const generatedQueryString = this.processTags();
+    console.log(`Generated Query String "${generatedQueryString}"`);
     // TODO(2) Remove Test Value before publishing package.
     return new DqueryResult(
       generatedQueryString,
