@@ -11,6 +11,10 @@ import { JSDOM } from "jsdom";
  * var matches = document.querySelectorAll("iframe[data-src]");
  * const refs = [...document.querySelectorAll(`[data-name*="funnel-chart-percent"]`)];
  * might be able to use attribute selectors instead of xpath minimal changes from old system.
+ * tested document.querySelectorAll("code[class*='code-highlight']")
+ * tested MULTIPLE attributes
+ * document.querySelectorAll("code[class*='code-highlight'][class*='language-js']")
+//  * nested is ok document.querySelectorAll("pre code[class*='code-highlight'][class*='language-js']")
  */
 
 function DQueryProcess(
