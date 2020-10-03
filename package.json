@@ -15,10 +15,8 @@
   "dependencies": {
     "@types/jsdom": "^12.2.4",
     "@types/node-fetch": "^2.5.2",
-    "install": "^0.13.0",
     "jsdom": "^15.1.1",
     "node-fetch": "^2.6.0",
-    "npm": "^6.14.8",
     "typescript": "^4.0.3"
   },
   "types": "dist/index.d.ts",
